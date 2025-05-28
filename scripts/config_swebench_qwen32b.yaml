@@ -17,7 +17,7 @@ base:
     auto_list: True  # in pdb tool
 
     # LLM configs
-    llm_name: "gpt-4o"
+    llm_name: "OpenHands-32B-Agent_qwen32B_bs1x8_lr1e-4_ep5" 
 
     # Agent configs
     random_seed: 42

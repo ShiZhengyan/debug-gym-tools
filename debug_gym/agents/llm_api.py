@@ -806,6 +806,26 @@ class OpenAILLM(LLM):
         # set max tokens if not provided
         kwargs["max_tokens"] = kwargs.get("max_tokens", NOT_GIVEN)
         try:
+            tools_json = self.define_tools(tools)
+            messages_size = len(json.dumps(messages))
+            tools_size = len(json.dumps(tools_json))
+            total_size = messages_size + tools_size
+            
+            # Add token counting
+            messages_tokens = self.count_tokens(json.dumps(messages))
+            tools_tokens = self.count_tokens(json.dumps(tools_json))
+            total_tokens = messages_tokens + tools_tokens
+            
+            self.logger.info(f"Request sizes - Messages: {messages_size} bytes ({messages_tokens} tokens), Tools: {tools_size} bytes ({tools_tokens} tokens), Total: {total_size} bytes ({total_tokens} tokens)")
+
+            self.logger.info("=" * 50)
+            self.logger.info("MESSAGES:")
+            self.logger.info(json.dumps(messages, indent=2))
+            self.logger.info("=" * 50)
+            self.logger.info("TOOLS:")
+            self.logger.info(json.dumps(tools_json, indent=2))
+            self.logger.info("=" * 50)
+
             response = retry_on_rate_limit(
                 self.client.chat.completions.create, self.is_rate_limit_error
             )(

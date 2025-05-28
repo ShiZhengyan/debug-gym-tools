@@ -17,7 +17,7 @@ base:
     auto_list: True  # in pdb tool
 
     # LLM configs
-    llm_name: "gpt-4o"
+    llm_name: "poutine-openhands-lm"  # 修改为 openhands-lm
 
     # Agent configs
     random_seed: 42

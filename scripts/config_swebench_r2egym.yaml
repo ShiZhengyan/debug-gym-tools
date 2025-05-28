@@ -17,7 +17,7 @@ base:
     auto_list: True  # in pdb tool
 
     # LLM configs
-    llm_name: "gpt-4o"
+    llm_name: "r2egym-32b-agent"  # 修改为 r2egym-32b-agent
 
     # Agent configs
     random_seed: 42
